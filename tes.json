@@ -1,0 +1,17 @@
+{
+    "Users": [
+        {
+            "_id": "asdasdsad",
+            "username": "Rogelio",
+            "password": "asdasd9498441dwe",
+            "tasks": ["sadsad", "asdasd"]
+        }
+    ],
+    "Tasks": [
+        {
+            "_id": "sadsad",
+            "tasks": "sad",
+            "descrpt": "sadasd"
+        }
+    ]
+}

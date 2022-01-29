@@ -8,9 +8,6 @@ const KEYS = {
     DB_URI: process.env.DB_URI || ""
 };
 
-console.log(KEYS);
-
 module.exports = { 
     KEYS
 };
-

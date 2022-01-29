@@ -1,8 +1,10 @@
 // Dependencias
 const app = require('./app');
-require('./config/keys');
+const { newConnection } = require('./config/database');
 
-function main() {
+async function main() {
+
+    await newConnection();
     
     app.listen(app.get('port'), () => {
         console.log("Server on port " + app.get('port'));

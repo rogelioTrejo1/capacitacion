@@ -6,6 +6,7 @@ const { KEYS } = require('./config/keys');
 
 // Importacion de Rutas
 const routes = require('./routes/routes');
+const authRoutes = require('./routes/auth.routes');
 
 // Instancias
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors());
 
 // Rutas
 app.use(routes);
+app.use("/auth", authRoutes);
 
 // Exportación de la aplicación
 module.exports = app;
