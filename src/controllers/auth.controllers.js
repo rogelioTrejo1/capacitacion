@@ -6,6 +6,14 @@ const login = async (req, res) => {
     // Obtengo los datos del cuerpo de la petición
     const { username, password } = req.body;
 
+    // Valido los parametros
+    if (!username || !password)
+        return res.status(400)
+            .json({
+                status: 400,
+                message: "Parametros invalidos"
+            });
+
     // Valido si existe el usuario
     const user = await Users.findOne({ username });
     if (!user)
@@ -34,18 +42,27 @@ const login = async (req, res) => {
             }
         });
 
-    
+
 };
 
 const register = async (req, res) => {
     // Obtengo los datos del cuerpo de la petición
     const { username, password } = req.body;
 
+    // Valido los parametros
+    if (!username || !password)
+        return res.status(400)
+            .json({
+                status: 400,
+                message: "Parametros invalidos"
+            });
+
+    // Creo el nuevo usuario
     const newUser = new Users({ username, password })
     await newUser.save();
 
     res.status(201)
-        .json({ 
+        .json({
             status: 201,
             message: "User created!",
             body: newUser

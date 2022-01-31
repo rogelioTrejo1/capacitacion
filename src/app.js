@@ -7,6 +7,7 @@ const { KEYS } = require('./config/keys');
 // Importacion de Rutas
 const routes = require('./routes/routes');
 const authRoutes = require('./routes/auth.routes');
+const tasksRoutes = require('./routes/tasks.routes');
 
 // Instancias
 const app = express();
@@ -19,10 +20,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
+// Ejemplo de middleware global!
+app.use((req, res, next) => {
+    if (req.url.startsWith("/tasks")) {
+        console.log("ruta indicada")
+    }
+    next();
+});
 
 // Rutas
 app.use(routes);
 app.use("/auth", authRoutes);
+app.use(tasksRoutes);
 
 // Exportación de la aplicación
 module.exports = app;

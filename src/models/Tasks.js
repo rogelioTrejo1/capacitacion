@@ -12,6 +12,10 @@ const taskSchema = new Schema({
         required: true,
         trim: true
     },
+    done: {
+        type: Boolean, 
+        default: false
+    },
     create_at: {
         type: Date,
         default: Date.now
