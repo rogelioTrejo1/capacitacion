@@ -20,7 +20,7 @@ const getTask = async (req, res) => {
 
     const task = await Tasks.findById(id);
 
-    if(!task) {
+    if (!task) {
         return res.status(404)
             .json({
                 status: 401,
@@ -56,12 +56,61 @@ const postTask = async (req, res) => {
         });
 };
 
-const putTask = (req, res) => {
+const putTask = async (req, res) => {
+    // Obtengo el cuerpo de la petición
+    const { id } = req.params;
+    const { name, description, done } = req.body;
 
+    const task = await Tasks.findById(id);
+
+    if (!task) {
+        return res.status(404)
+            .json({
+                status: 404,
+                message: "Task not found",
+            });
+    }
+
+    // Guardo y actualizo los datos de mi modelo 
+    task.name = name;
+    task.description = description;
+    task.done = done;
+    await task.save();
+
+    // Actualizar un dato sin validar
+    // const resp = await Tasks.findByIdAndUpdate(id, { name, description, done });
+
+    return res.status(200)
+        .json({
+            status: 200,
+            message: "Task updated!",
+            body: task
+        });
 };
 
-const patchTask = (req, res) => {
+const patchTask = async (req, res) => {
+    // Obtengo el cuerpo de la petición
+    const { id } = req.params;
 
+    const task = await Tasks.findById(id);
+
+    if (!task) {
+        return res.status(404)
+            .json({
+                status: 404,
+                message: "Task not found",
+            });
+    }
+
+    task.done = !task.done;
+    await task.save();
+
+    return res.status(200)
+        .json({
+            status: 200,
+            message: "Task updated!",
+            body: task
+        });
 };
 
 const deleteTask = async (req, res) => {
@@ -86,10 +135,10 @@ const deleteTask = async (req, res) => {
 
 // Exportación del los controladores
 module.exports = {
-    getTask, 
+    getTask,
     deleteTask,
-    getTasks, 
-    postTask, 
-    putTask, 
+    getTasks,
+    postTask,
+    putTask,
     patchTask
 };
